@@ -68,7 +68,7 @@ Every call is one JSON-RPC `tools/call` POST to `https://mcp.mdexa.com/mcp`; no 
 
 ## Links
 
-Website https://mdexa.com/ · Agent guide https://mdexa.com/agents.md · llms.txt https://mdexa.com/llms.txt · Open records https://github.com/mdexa-ai/database · Datasets by domain https://github.com/mdexa-ai/awesome-medical-ai-datasets
+Website https://mdexa.com/ · Agent guide https://mdexa.com/agents.md · llms.txt https://mdexa.com/llms.txt · Open records https://github.com/mdexa-ai/mdexa-ai-native-database · Datasets by domain https://github.com/mdexa-ai/awesome-medical-ai-datasets
 
 ## License
 
