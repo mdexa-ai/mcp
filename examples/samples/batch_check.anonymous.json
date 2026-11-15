@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "batch_check needs an API key: sign up free at https://mdexa.com/signup/, create a key in the console and send it as 'Authorization: Bearer <key>' (free: 10 items per call, pro 200, ultra 2000). Without a key, use search_datasets with slugs=a,b,c (up to 50 slugs, anonymous is fine) to check known da…"
+    }
+  ],
+  "structuredContent": {
+    "error": {
+      "code": "auth_required",
+      "status": 401,
+      "message": "batch_check needs an API key: sign up free at https://mdexa.com/signup/, create a key in the console and send it as 'Authorization: Bearer <key>' (free: 10 items per call, pro 200, ultra 2000). Without a key, use search_datasets with slugs=a,b,c (up to 50 slugs, anonymous is fine) to check known da…",
+      "message_id": "B06",
+      "reason": "batch_check needs an API key; anonymous callers cannot use it. (A request without a key is not a call.)",
+      "what_counts": "A call is one machine read of the Mdexa database content: an API data request, an MCP database tool call, or a download of a dataset .json/.md file or catalog.json. Web pages, sign-in, tools/list and requests that are rejected do not count (definition: GET /v1/tools, call_definition).",
+      "next_step": "Without an account, datasets can be looked up by exact name: slugs=a,b,c in search_datasets or GET /v1/datasets (up to 50 per call). A free account provides an API key and batch_check for up to 10 items per call. Sign up: https://mdexa.com/signup/",
+      "for_your_user": "Checking a whole list in one call needs an API key from a free account (no payment). Without one, the caller can still look datasets up by slug, up to 50 per call. Whether to sign up is the user's decision: https://mdexa.com/signup/"
+    }
+  },
+  "isError": true
+}

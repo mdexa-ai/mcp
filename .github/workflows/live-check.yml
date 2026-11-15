@@ -1,0 +1,30 @@
+# Once a day, two anonymous calls to the live Mdexa endpoints. Any failure turns this workflow red.
+name: live-check
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: MCP tools/call search_datasets (anonymous)
+        run: |
+          set -eu
+          out=$(curl -sS --fail-with-body --max-time 30 -X POST https://mcp.mdexa.com/mcp \
+            -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -H 'X-Mdexa-Hints: off' \
+            -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"search_datasets","arguments":{"slugs":["cmb"],"limit":1}}}')
+          echo "$out" | jq -e '.result.isError == false and (.result.content[0].text | fromjson | .items[0].slug == "cmb")' > /dev/null
+          echo "MCP search_datasets: ok"
+      - name: HTTP GET /v1/datasets/cmb (anonymous)
+        run: |
+          set -eu
+          curl -sS --fail-with-body --max-time 30 -H 'X-Mdexa-Hints: off' https://mcp.mdexa.com/v1/datasets/cmb \
+            | jq -e '.slug == "cmb" and (.license_status | type == "string") and (.card_url | startswith("https://mdexa.com/"))' > /dev/null
+          echo "HTTP GET /v1/datasets/cmb: ok"

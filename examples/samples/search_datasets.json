@@ -1,0 +1,179 @@
+{
+  "total": 13,
+  "tier_counts": {
+    "verified": 13,
+    "practical": 0,
+    "registered": 0
+  },
+  "type_counts": {
+    "dataset": 13,
+    "model": 0
+  },
+  "count": 3,
+  "next_cursor": "o3",
+  "has_more": true,
+  "complete": false,
+  "note": "Showing 3 of 13; pass next_cursor for the next page.",
+  "as_of": "2026-11-14",
+  "items": [
+    {
+      "name": "HWTCM（Haiwei 中医评测集）",
+      "slug": "hwtcm",
+      "tier": "verified",
+      "record_type": "dataset",
+      "verified_by": "verified by Mdexa on 2026-11-12",
+      "summary": "License: permissive (MIT); Mdexa hosting: link-only. License is permissive, but source risk: source not stated, so source copyright cannot be judged; link only.",
+      "license_status": "permissive",
+      "hosting": "link-only",
+      "size": "39,169行，10.7 MB",
+      "year": 2024,
+      "last_verified": "2026-11-12",
+      "risk_flags": [
+        "unknown-provenance"
+      ],
+      "repo_only": false,
+      "domains": [
+        "tcm"
+      ],
+      "content_types": [
+        "benchmark-exam"
+      ],
+      "languages": [
+        "zh"
+      ],
+      "task": [
+        "choice-question",
+        "multi-answer",
+        "true-false"
+      ],
+      "use": [
+        "evaluation"
+      ],
+      "spec": [
+        "multi"
+      ],
+      "card_url": "https://mdexa.com/datasets/hwtcm/"
+    },
+    {
+      "name": "LingLanMedBench Traditional Chinese Medicine Benchmark Dataset",
+      "slug": "linglan",
+      "tier": "verified",
+      "record_type": "dataset",
+      "verified_by": "verified by Mdexa on 2026-11-14",
+      "summary": "License: permissive (CC-BY-4.0); Mdexa hosting: link-only. first-hand data-scope statement(s) allow commercial use and redistribution Risk flag(s): exam-derived.",
+      "license_status": "permissive",
+      "hosting": "link-only",
+      "size": "25,620 Full items; 5,200 Hard items",
+      "year": null,
+      "last_verified": "2026-11-14",
+      "risk_flags": [
+        "exam-derived"
+      ],
+      "repo_only": false,
+      "domains": [
+        "tcm",
+        "tcm-materia-medica",
+        "tcm-formulas"
+      ],
+      "content_types": [
+        "benchmark-exam",
+        "qa-dialogue",
+        "annotated-corpus"
+      ],
+      "languages": [
+        "zh"
+      ],
+      "task": [
+        "choice-question",
+        "multi-answer",
+        "fill-in-blank"
+      ],
+      "use": [
+        "evaluation"
+      ],
+      "expert": "review-unspecified",
+      "spec": [
+        "multi"
+      ],
+      "card_url": "https://mdexa.com/datasets/linglan/"
+    },
+    {
+      "name": "MLEC-QA",
+      "slug": "mlec-qa",
+      "tier": "verified",
+      "record_type": "dataset",
+      "verified_by": "verified by Mdexa on 2026-11-12",
+      "summary": "License: unstated (NOASSERTION); Mdexa hosting: pending. License unstated: Repository-level MIT only; no data license stated; link only until resolved.",
+      "license_status": "unstated",
+      "hosting": "pending",
+      "size": "136,236道选择题，5个子集（临床、口腔、公共卫生、中医、中西医结合），各有训/验/测",
+      "year": 2021,
+      "last_verified": "2026-11-12",
+      "risk_flags": [
+        "exam-derived"
+      ],
+      "repo_only": true,
+      "domains": [
+        "clinical-medicine",
+        "public-health",
+        "tcm"
+      ],
+      "content_types": [
+        "benchmark-exam"
+      ],
+      "languages": [
+        "zh"
+      ],
+      "task": [
+        "choice-question"
+      ],
+      "use": [
+        "evaluation"
+      ],
+      "spec": [
+        "multi"
+      ],
+      "card_url": "https://mdexa.com/datasets/mlec-qa/"
+    }
+  ],
+  "next_steps": {
+    "calls": [
+      {
+        "tool": "get_license_evidence",
+        "http": "GET /v1/datasets/hwtcm/evidence",
+        "arguments": {
+          "slug": "hwtcm"
+        },
+        "reason": "The quoted license sentences, for an entry that will be reported."
+      },
+      {
+        "tool": "search_datasets",
+        "http": "GET /v1/datasets",
+        "arguments": {
+          "system": [
+            "traditional-medicine"
+          ],
+          "content_type": [
+            "benchmark-exam"
+          ],
+          "limit": 3,
+          "cursor": "o3"
+        },
+        "reason": "More results exist for the same filters."
+      },
+      {
+        "tool": "check_changes",
+        "http": "GET /v1/changes",
+        "arguments": {
+          "slugs": [
+            "hwtcm",
+            "linglan",
+            "mlec-qa"
+          ],
+          "since": "2026-11-15"
+        },
+        "reason": "Later: what changed in these entries after today."
+      }
+    ]
+  }
+}

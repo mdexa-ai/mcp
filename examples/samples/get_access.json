@@ -1,0 +1,74 @@
+{
+  "slug": "gnomad",
+  "license_status": "permissive",
+  "has_restricted_parts": true,
+  "hosting": "link-only",
+  "last_verified": "2026-11-13",
+  "verified_by": "verified by Mdexa on 2026-11-13",
+  "card_url": "https://mdexa.com/datasets/gnomad/",
+  "tier": "verified",
+  "name": "gnomAD",
+  "access_type": "external-link",
+  "mdexa_download": null,
+  "download_available": false,
+  "reason": "License permissive, judged by public rules and checked by a second-pass model. Link only.",
+  "sources": [
+    {
+      "url": "https://gnomad.broadinstitute.org/"
+    },
+    {
+      "url": "https://gnomad.broadinstitute.org/policies"
+    }
+  ],
+  "notes": null,
+  "statement": "Mdexa does not offer any dataset files at this time. Follow the download instructions at the original source; do not invent download commands.",
+  "license_notice": "License status: permissive. The recipe describes how to obtain the data; the terms of the official source apply.",
+  "recipe": {
+    "verified_on": "2026-11-14",
+    "platform": null,
+    "access_state": null,
+    "latest_version": {
+      "version": "4.1.1",
+      "date": null,
+      "verified_on": "2026-11-14",
+      "source_url": "https://gnomad.broadinstitute.org/downloads"
+    },
+    "files": {
+      "count": 3,
+      "total_size_bytes": null,
+      "sizes_known": 0,
+      "truncated": false,
+      "formats": {
+        "VCF": 2,
+        "VCF index": 1
+      }
+    },
+    "preferred": {
+      "kind": "bulk_download",
+      "value": "gsutil ls gs://gcp-public-data--gnomad/release/",
+      "verified_on": "2026-11-14",
+      "source_url": "https://gnomad.broadinstitute.org/downloads"
+    },
+    "request": null,
+    "api_templates": 0,
+    "bulk_downloads": 2,
+    "gaps": [],
+    "note": "Taken from the official pages and the platform's own file list; Mdexa does not host or hand over the data. Each item carries its verification date and source.",
+    "full_list": "Pass detail=full for the complete file list (3 files, paged), the API templates and the application steps."
+  },
+  "next_steps": {
+    "calls": [
+      {
+        "tool": "check_changes",
+        "http": "GET /v1/changes",
+        "arguments": {
+          "slugs": [
+            "gnomad"
+          ],
+          "since": "2026-11-15"
+        },
+        "reason": "Later: what changed in these entries after today."
+      }
+    ]
+  }
+}
