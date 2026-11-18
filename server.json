@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mdexa-ai/mdexa",
+  "title": "Mdexa",
+  "description": "Look up medical AI datasets and open models: verified licenses, evidence and access details.",
+  "version": "1.0.0",
+  "websiteUrl": "https://mdexa.com",
+  "repository": {
+    "url": "https://github.com/mdexa-ai/mcp",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.mdexa.com/mcp"
+    }
+  ]
+}
