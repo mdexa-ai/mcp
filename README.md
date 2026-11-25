@@ -4,7 +4,7 @@
 
 Connect an agent to the Mdexa database over MCP, or call the same tools from your own code. Mdexa is a license-verification database for medical AI datasets and open models, built for agents, with a quoted source behind every verdict.
 
-This repository holds client setup, runnable examples in Python, TypeScript and curl, and real response samples. It contains no server code. The server is hosted at `https://mcp.mdexa.com/mcp` (Streamable HTTP). Light use needs no account. The badge above is a daily anonymous call to the live endpoints ([workflow](.github/workflows/live-check.yml)).
+This repository holds client setup, runnable examples in Python, TypeScript and curl, and real response samples. It contains no server code. The server is hosted at `https://mcp.mdexa.com/mcp` (Streamable HTTP). Every database call needs an API key; a free account is enough (https://mdexa.com/signup/). The badge above is a daily call to the live endpoints ([workflow](.github/workflows/live-check.yml)).
 
 Other languages: [中文](README.zh.md)
 
@@ -13,28 +13,22 @@ Other languages: [中文](README.zh.md)
 Claude Code (tested, see [clients/claude-code.md](clients/claude-code.md)):
 
 ```bash
-claude mcp add --transport http mdexa https://mcp.mdexa.com/mcp
+claude mcp add --transport http mdexa https://mcp.mdexa.com/mcp --header "Authorization: Bearer YOUR_KEY"
 ```
 
 Clients that accept the generic `mcpServers` form (not tested on every client; check your client's documentation):
 
 ```json
-{ "mcpServers": { "mdexa": { "url": "https://mcp.mdexa.com/mcp" } } }
+{ "mcpServers": { "mdexa": { "url": "https://mcp.mdexa.com/mcp", "headers": { "Authorization": "Bearer YOUR_KEY" } } } }
 ```
 
 The configuration format of other clients is the client's own. Mdexa lists a setup only for clients that have passed a real test, and the generic `mcpServers` form is not accepted by every client, so check your client's documentation. See https://mdexa.com/developers/ and https://mdexa.com/developers/faq/.
 
-With a free-account key (higher limits, batch checking), send it as `Authorization: Bearer <key>`. In Claude Code:
-
-```bash
-claude mcp add --transport http mdexa https://mcp.mdexa.com/mcp --header "Authorization: Bearer $MDEXA_API_KEY"
-```
-
-Keep keys out of repositories and prompts.
+Send the key as `Authorization: Bearer <key>`. Keep keys out of repositories and prompts.
 
 ## Run the examples
 
-Each example makes the same five calls: `search_datasets`, `get_card`, `get_license_evidence`, `get_access` and `batch_check`. The first four work without an account. `batch_check` needs a free-account key, which the examples read from the environment variable `MDEXA_API_KEY`; without it they skip that call and say so.
+Each example makes the same five calls: `search_datasets`, `get_card`, `get_license_evidence`, `get_access` and `batch_check`. Every call needs a free-account key, which you put in the file where it says `YOUR_KEY` (curl: `KEY=`) before running.
 
 | Language | File | Run |
 |---|---|---|
@@ -42,15 +36,11 @@ Each example makes the same five calls: `search_datasets`, `get_card`, `get_lice
 | TypeScript (no dependencies) | [examples/typescript/mdexa-mcp.ts](examples/typescript/mdexa-mcp.ts) | `node examples/typescript/mdexa-mcp.ts` (Node 22.18 or later; otherwise `npx tsx`) |
 | curl | [examples/curl/mdexa-mcp.sh](examples/curl/mdexa-mcp.sh) | `sh examples/curl/mdexa-mcp.sh` |
 
-```bash
-MDEXA_API_KEY=<your key> python examples/python/mdexa_mcp.py   # with batch_check
-```
-
 Every call is one JSON-RPC `tools/call` POST to `https://mcp.mdexa.com/mcp`; no session and no SDK are needed. Real responses of these calls are in [examples/samples/](examples/samples/). The same records are also served over plain HTTP, for example `GET https://mcp.mdexa.com/v1/datasets/cblue`.
 
 ## Tools
 
-`search_datasets`, `search_content`, `get_card`, `get_license_evidence`, `list_facets`, `get_overview` (not counted), `get_access`, `find_similar_datasets`, `batch_check` (needs a free-account key), `check_changes`, `request_dataset`.
+`search_datasets`, `search_content`, `get_card`, `get_license_evidence`, `list_facets`, `get_overview` (not counted), `get_access`, `find_similar_datasets`, `batch_check`, `check_changes`, `request_dataset`.
 
 ## Five prompts to copy
 

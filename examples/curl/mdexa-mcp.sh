@@ -1,17 +1,17 @@
 #!/bin/sh
 # Mdexa over MCP with curl. Each call is one JSON-RPC "tools/call" POST; no session is needed.
-# Run: sh mdexa-mcp.sh
-# batch_check needs a free-account key, read from the environment: MDEXA_API_KEY=<your key> sh mdexa-mcp.sh
+# Every call needs a free-account key (https://mdexa.com/signup/), put it in KEY below, then: sh mdexa-mcp.sh
 # Real responses of these calls: ../samples/ (the result is the JSON text in result.content[0].text)
 set -eu
 ENDPOINT=https://mcp.mdexa.com/mcp
+KEY=YOUR_KEY # replace with your free-account key (https://mdexa.com/signup/)
 
 call() { # call <tool> <arguments as JSON> [more curl options]
   tool=$1
   args=$2
   shift 2
   curl -sS --fail-with-body --max-time 30 -X POST "$ENDPOINT" \
-    -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' "$@" \
+    -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' -H "Authorization: Bearer $KEY" "$@" \
     -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"tools/call\",\"params\":{\"name\":\"$tool\",\"arguments\":$args}}"
   echo
 }
@@ -24,14 +24,10 @@ call get_card '{"slug":"cblue"}'
 call get_license_evidence '{"slug":"alphafold-db"}'
 # 4. How to obtain the data: links to the official source. Mdexa does not host dataset files.
 call get_access '{"slug":"gnomad"}'
-# 5. A whole list in one call. Needs a free-account key.
-if [ -n "${MDEXA_API_KEY:-}" ]; then
-  call batch_check '{"items":["cmb","MIMIC-IV","https://huggingface.co/datasets/FreedomIntelligence/CMB"]}' -H "Authorization: Bearer $MDEXA_API_KEY"
-else
-  echo "batch_check: skipped (set MDEXA_API_KEY to a free-account key to run it)"
-fi
+# 5. A whole list in one call.
+call batch_check '{"items":["cmb","MIMIC-IV","https://huggingface.co/datasets/FreedomIntelligence/CMB"]}'
 
-# The same records over plain HTTP, without JSON-RPC:
-#   curl https://mcp.mdexa.com/v1/datasets/cblue
-#   curl https://mcp.mdexa.com/v1/datasets/alphafold-db/evidence
-#   curl https://mcp.mdexa.com/v1/datasets/gnomad/access
+# The same records over plain HTTP, without JSON-RPC (the same key):
+#   curl -H "Authorization: Bearer $KEY" https://mcp.mdexa.com/v1/datasets/cblue
+#   curl -H "Authorization: Bearer $KEY" https://mcp.mdexa.com/v1/datasets/alphafold-db/evidence
+#   curl -H "Authorization: Bearer $KEY" https://mcp.mdexa.com/v1/datasets/gnomad/access
