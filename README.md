@@ -1,6 +1,7 @@
 # Mdexa MCP examples
 
 [![live-check](https://github.com/mdexa-ai/mcp/actions/workflows/live-check.yml/badge.svg)](https://github.com/mdexa-ai/mcp/actions/workflows/live-check.yml)
+[![Mdexa MCP connector](https://glama.ai/mcp/connectors/io.github.mdexa-ai/mdexa/badges/score.svg)](https://glama.ai/mcp/connectors/io.github.mdexa-ai/mdexa)
 
 Connect an agent to the Mdexa database over MCP, or call the same tools from your own code. Mdexa is a license-verification database for medical AI datasets and open models, built for agents, with a quoted source behind every verdict.
 
